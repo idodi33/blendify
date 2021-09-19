@@ -1,8 +1,14 @@
 from typing import List
+import os
+
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-SCOPE = "user-library-read, user-modify-playback-state"
+SCOPE = ','.join(['user-library-read',
+                 'user-modify-playback-state',
+                 'playlist-modify-private',
+                 'playlist-read-private',
+                 'playlist-modify-public'])
 DEFAULT_LIMIT = 30
 
 
@@ -53,6 +59,25 @@ def add_uris_to_queue(uris: List[str], device_id: str=None) -> None:
         sp.add_to_queue(uri, device_id=device_id)
 
 
+def _get_playlist_id(user_id: str, playlist_name: str) -> str:
+    playlists = sp.user_playlists(user_id)
+    for playlist in playlists['items']:
+        if playlist['name'] == playlist_name:
+            return playlist['id']
+    raise ValueError('No playlist with the given name')
+
+
+def make_playlist_from_uris(uris: List[str], playlist_name: str=None) -> None:
+    """
+    Gets a list of track uris and a playlist name and makes a playlist
+    with the given name that contains these uris.
+    """
+    user_id = os.environ.get('SPOTIPY_USER_ID')
+    sp.user_playlist_create(user_id, playlist_name)
+    playlist_id = _get_playlist_id(user_id, playlist_name)
+    sp.playlist_add_items(playlist_id, uris)
+
+
 if __name__ == '__main__':
     # recommendations = get_recommandations(artists=['Fortisakharof', 'Portishead', 'Assaf Amdursky', 'Pixies'],
     #                                genres=['trip-hop'])
@@ -61,3 +86,4 @@ if __name__ == '__main__':
     for idx, track in enumerate(recommendations):
         print(idx, track['artists'][0]['name'], " – ", track['name'])
     add_uris_to_queue([track['uri'] for track in recommendations])
+    #make_playlist_from_uris([track['uri'] for track in recommendations], 'Test Blendify!')

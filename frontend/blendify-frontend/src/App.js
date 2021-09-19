@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Container, Row, Col, Button } from 'reactstrap';
 import BlendifyNavbar from './components/Navbar.js';
 import AllItems from './components/AllItems.js';
-import BlendIntoQueueButton from './components/BlendIntoQueueButton.js';
+import AllButtons from './components/AllButtons.js';
 import { ItemsContextProvider } from './context/ItemsContext';
+
 
 class App extends React.Component {
     render() {
@@ -13,7 +13,7 @@ class App extends React.Component {
             <ItemsContextProvider>
                 <BlendifyNavbar/>
                 <AllItems/>
-                <BlendIntoQueueButton/>
+                <AllButtons/>
             </ItemsContextProvider>
         </div>)
     }

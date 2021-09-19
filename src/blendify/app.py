@@ -23,5 +23,25 @@ def add_to_queue():
     return 'Success!'
 
 
+@app.route('/api/make_playlist', methods=['POST'])
+def make_playlist():
+    """
+    Requests a list of recommendations from spotify and enters
+    the tracks to a playlist with an appropriate name, of the format
+    "<artist> / <track> / <genre>"
+    """
+    params = request.json
+    uris = core.get_recommandation_uris(artists=params.get('artists'),
+                                        genres=params.get('genres'),
+                                        tracks=params.get('tracks'),
+                                        limit=params.get('limit'))
+    playlist_name = ' / '.join([
+        *params.get('artists'),
+        *params.get('genres'),
+        *params.get('tracks')])
+    core.make_playlist_from_uris(uris, playlist_name)
+    return 'Success!'
+
+
 if __name__ == '__main__':
     app.run()
