@@ -54,8 +54,10 @@ def add_uris_to_queue(uris: List[str], device_id: str=None) -> None:
 
 
 if __name__ == '__main__':
-    recommendations = get_recommandations(artists=['Fortisakharof', 'Portishead', 'Assaf Amdursky', 'Pixies'],
-                                   genres=['trip-hop'])
+    # recommendations = get_recommandations(artists=['Fortisakharof', 'Portishead', 'Assaf Amdursky', 'Pixies'],
+    #                                genres=['trip-hop'])
+    recommendations = get_recommandations(artists=['Kaveret', 'Red Hot Chili Peppers', 'Ariana Grande'],
+                                          genres=['rock', 'pop'])
     for idx, track in enumerate(recommendations):
         print(idx, track['artists'][0]['name'], " – ", track['name'])
     add_uris_to_queue([track['uri'] for track in recommendations])

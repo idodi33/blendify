@@ -1,0 +1,7 @@
+.navbarbrand {
+    font-size: xx-large !important;
+}
+
+.navbar {
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+}
