@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 import os
 
 import spotipy
@@ -76,6 +76,14 @@ def make_playlist_from_uris(uris: List[str], playlist_name: str=None) -> None:
     sp.user_playlist_create(user_id, playlist_name)
     playlist_id = _get_playlist_id(user_id, playlist_name)
     sp.playlist_add_items(playlist_id, uris)
+
+
+def get_artist_image_url(name: str) -> Optional[str]:
+    id = _get_artist_ids([name])[0]
+    images = sp.artist(id)["images"]
+    if images:
+        return images[0]["url"]
+    return None
 
 
 if __name__ == '__main__':

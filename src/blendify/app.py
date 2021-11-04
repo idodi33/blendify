@@ -43,5 +43,10 @@ def make_playlist():
     return 'Success!'
 
 
+@app.route('/api/image_url/<name>')
+def get_image_url(name: str):
+    return core.get_artist_image_url(name)
+
+
 if __name__ == '__main__':
     app.run()

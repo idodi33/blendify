@@ -7,7 +7,7 @@ export default function BlendIntoButton(props, context) {
     return (
     <ItemsContext.Consumer>
         {(context) =>
-            <Button onClick={() =>
+            <Button color="primary" outline onClick={() =>
             props.blend(context.items['artists'], context.items['tracks'], context.items['genres'])}>
                 {props.value}
             </Button>

@@ -1,0 +1,16 @@
+.itemIcon {
+    border-style: solid;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    padding: 14px;
+    border-radius: 4px;
+    border-color: royalblue;
+    margin-block: 3px;
+}
+
+.itemImage {
+    height: 30%;
+    width: 30%;
+}
